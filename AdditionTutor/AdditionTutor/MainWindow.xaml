@@ -1,0 +1,43 @@
+﻿<Window x:Class="AdditionTutor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdditionTutor"
+        xmlns:local1="clr-namespace:AdditionTutor.value_converters"
+        mc:Ignorable="d"
+        Title="Addition Tutor" Height="350" Width="525" Icon="images/math_icon.jpg">
+    <Window.Resources>
+        <local1:ValidationCodeToResultString  x:Key="validationCodeToResultString"></local1:ValidationCodeToResultString>
+        <local1:ValidationCodeToBackground  x:Key="validationCodeToBackground"></local1:ValidationCodeToBackground>
+        <local1:ValidationCodeToForeground  x:Key="validationCodeToForeground"></local1:ValidationCodeToForeground>
+        <local1:ValidationCodeToVisibility  x:Key="validationCodeToVisibility"></local1:ValidationCodeToVisibility>
+        <local1:ValidationCodeToButtonString  x:Key="validationCodeToButtonString"></local1:ValidationCodeToButtonString>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/math_background.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Name="txbAdditionProblem" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="70" Background="#A0FFFFFF" Padding="10, 5">
+            <Run Text="{Binding FirstNumber}"/>
+            <Run Text=" + "/>
+            <Run Text="{Binding SecondNumber}"/>
+            <Run Text=" ="/>
+        </TextBlock>
+        <TextBox Name="txbxResult" Grid.Row="1" Margin="210, 10" Text="{Binding UserResult}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="32" PreviewTextInput="UserResult_PreviewTextInput"/>
+        <Label Name="lblResult" Grid.Row="2" Content="{Binding Path=VerificationCode, Converter={StaticResource validationCodeToResultString}}" Background="{Binding Path=VerificationCode, Converter={StaticResource validationCodeToBackground}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="{Binding Path=VerificationCode, Converter={StaticResource validationCodeToForeground}}" Padding="40, 5" Visibility="{Binding Path=VerificationCode, Converter={StaticResource validationCodeToVisibility}}"/>
+        <Button Name="btnCheckReset" Content="{Binding Path=VerificationCode, Converter={StaticResource validationCodeToButtonString}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" FontSize="20" FontWeight="Bold" Padding="10, 7" Click="Button_Check_Click"/>
+        <Button Name="btnScore" Content="Score" HorizontalAlignment="Right" Grid.Row="3" FontSize="15" FontWeight="Bold" VerticalAlignment="Bottom" Margin="10" Padding="5" Click="Button_Score_Click"/>
+    </Grid>
+</Window>
